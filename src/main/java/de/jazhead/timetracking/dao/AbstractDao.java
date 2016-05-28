@@ -5,7 +5,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Created by mg on 28.05.2016.
+ * @Author jazhead
  */
 abstract public class AbstractDao
 {
