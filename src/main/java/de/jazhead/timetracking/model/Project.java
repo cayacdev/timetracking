@@ -1,11 +1,20 @@
 package de.jazhead.timetracking.model;
 
+import javax.persistence.*;
+
 /**
  * @Author jazhead
  */
+@Entity
+@Table(name = "project")
 public class Project {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", unique = true, nullable = false)
     private int id;
+
+    @Column(name = "name", unique = true, nullable = false)
     private String name;
 
     public int getId() {

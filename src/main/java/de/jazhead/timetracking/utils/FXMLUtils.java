@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
- *
  * @author Mehmet Sunkur <mehmetsunkur@gmail.com>
  */
 public class FXMLUtils {
@@ -32,14 +31,14 @@ public class FXMLUtils {
             URL location = FXMLUtils.class.getResource(fxmlPath);
             Document document = builder.parse(location.openStream());
             NamedNodeMap attributes = document.getDocumentElement().getAttributes();
-            String fxControllerClassName=null;
+            String fxControllerClassName = null;
             for (int i = 0; i < attributes.getLength(); i++) {
                 Node item = attributes.item(i);
-                if(item.getNodeName().equals(FXMLLoader.FX_NAMESPACE_PREFIX+":"+FXMLLoader.CONTROLLER_KEYWORD)){
+                if (item.getNodeName().equals(FXMLLoader.FX_NAMESPACE_PREFIX + ":" + FXMLLoader.CONTROLLER_KEYWORD)) {
                     fxControllerClassName = item.getNodeValue();
                 }
             }
-            if(fxControllerClassName!=null)
+            if (fxControllerClassName != null)
                 return ClassLoader.getSystemClassLoader().loadClass(fxControllerClassName);
         } catch (ParserConfigurationException | SAXException | IOException | ClassNotFoundException ex) {
             ex.printStackTrace();

@@ -1,10 +1,11 @@
 package de.jazhead.timetracking.service.impl;
 
+import de.jazhead.timetracking.dao.ProjectDao;
 import de.jazhead.timetracking.model.Project;
 import de.jazhead.timetracking.service.ProjectService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -12,19 +13,23 @@ import java.util.List;
  */
 @Service
 public class DefaultProjectService implements ProjectService {
+
+    @Autowired
+    private ProjectDao projectDao;
+
     @Override
     public List<Project> getAllProjects() {
-        Project project1 = new Project();
-        project1.setId(1);
-        project1.setName("Project 1");
 
+        return projectDao.findAllProjects();
 
-        Project project2 = new Project();
-        project2.setId(2);
-        project2.setName("Project 2");
+    }
 
-        return Arrays.asList(project1, project2);
+    @Override
+    public Project saveProject(String text) {
 
+        int id = projectDao.saveProject(text);
+
+        return projectDao.findProject(id);
 
     }
 }

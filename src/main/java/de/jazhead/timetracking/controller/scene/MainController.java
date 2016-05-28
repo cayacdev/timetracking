@@ -3,9 +3,13 @@ package de.jazhead.timetracking.controller.scene;
 import de.jazhead.timetracking.model.Project;
 import de.jazhead.timetracking.service.ProjectService;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
+import javafx.util.StringConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,18 +22,40 @@ import java.util.ResourceBundle;
 @Component
 public class MainController implements Initializable {
     public ComboBox<Project> comboBox;
+    public TextField textField;
 
     @Autowired
     private ProjectService projectService;
+    private ObservableList<Project> list;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        ObservableList<Project> list = FXCollections.observableArrayList(projectService.getAllProjects());
+        list = FXCollections.observableArrayList(projectService.getAllProjects());
 
         comboBox.setItems(list);
+        comboBox.setConverter(new StringConverter<Project>() {
+            @Override
+            public String toString(Project object) {
+                return object.getName();
+            }
+
+            @Override
+            public Project fromString(String string) {
+                return null;
+            }
+        });
+
+        list.addListener((ListChangeListener<? super Project>) e -> System.out.println("changed"));
 
         System.out.println("test");
     }
 
+    public void saveProject(ActionEvent actionEvent) {
+        String text = textField.getText();
+        Project project = projectService.saveProject(text);
+
+        list.add(project);
+
+    }
 }
