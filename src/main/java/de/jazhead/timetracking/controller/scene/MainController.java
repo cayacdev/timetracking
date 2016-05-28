@@ -4,6 +4,7 @@ import de.jazhead.timetracking.controller.widget.ValidatorNotification;
 import de.jazhead.timetracking.exception.ValidationErrorException;
 import de.jazhead.timetracking.model.Project;
 import de.jazhead.timetracking.service.ProjectService;
+import de.jazhead.timetracking.utils.converter.ProjectStringConverter;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -11,7 +12,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.util.StringConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -37,20 +37,7 @@ public class MainController implements Initializable
         list = FXCollections.observableArrayList(projectService.getAllProjects());
 
         comboBox.setItems(list);
-        comboBox.setConverter(new StringConverter<Project>()
-        {
-            @Override
-            public String toString(Project object)
-            {
-                return object.getName();
-            }
-
-            @Override
-            public Project fromString(String string)
-            {
-                return null;
-            }
-        });
+        comboBox.setConverter(new ProjectStringConverter());
 
         list.addListener((ListChangeListener<? super Project>) e -> System.out.println("changed"));
 
