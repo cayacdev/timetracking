@@ -1,5 +1,7 @@
 package de.jazhead.timetracking.controller.scene;
 
+import de.jazhead.timetracking.controller.widget.ValidatorNotification;
+import de.jazhead.timetracking.exception.ValidationErrorException;
 import de.jazhead.timetracking.model.Project;
 import de.jazhead.timetracking.service.ProjectService;
 import javafx.collections.FXCollections;
@@ -58,9 +60,15 @@ public class MainController implements Initializable
     public void saveProject(ActionEvent actionEvent)
     {
         String text = textField.getText();
-        Project project = projectService.saveProject(text);
-
-        list.add(project);
-
+        Project project;
+        try
+        {
+            project = projectService.saveProject(text);
+            list.add(project);
+            textField.setText("");
+        } catch (ValidationErrorException validationErrorException)
+        {
+            ValidatorNotification.message("Validation error", "The project " + text + " already exists");
+        }
     }
 }

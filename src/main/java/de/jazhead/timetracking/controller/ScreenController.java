@@ -25,7 +25,7 @@ public class ScreenController implements ApplicationContextAware
     public void init(Stage stage)
     {
         this.stage = stage;
-        String fxmlPath = "/scene/main.fxml";
+        String fxmlPath = "/fxml/scene/main.fxml";
 
         Parent root = getRoot(fxmlPath);
 
