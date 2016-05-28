@@ -20,7 +20,8 @@ import java.util.ResourceBundle;
  * @Author jazhead
  */
 @Component
-public class MainController implements Initializable {
+public class MainController implements Initializable
+{
     public ComboBox<Project> comboBox;
     public TextField textField;
 
@@ -29,19 +30,22 @@ public class MainController implements Initializable {
     private ObservableList<Project> list;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
+    public void initialize(URL location, ResourceBundle resources)
+    {
         list = FXCollections.observableArrayList(projectService.getAllProjects());
 
         comboBox.setItems(list);
-        comboBox.setConverter(new StringConverter<Project>() {
+        comboBox.setConverter(new StringConverter<Project>()
+        {
             @Override
-            public String toString(Project object) {
+            public String toString(Project object)
+            {
                 return object.getName();
             }
 
             @Override
-            public Project fromString(String string) {
+            public Project fromString(String string)
+            {
                 return null;
             }
         });
@@ -51,7 +55,8 @@ public class MainController implements Initializable {
         System.out.println("test");
     }
 
-    public void saveProject(ActionEvent actionEvent) {
+    public void saveProject(ActionEvent actionEvent)
+    {
         String text = textField.getText();
         Project project = projectService.saveProject(text);
 

@@ -17,12 +17,13 @@ import java.io.IOException;
  * @Author jazhead
  */
 @Service
-public class ScreenController implements ApplicationContextAware {
-
+public class ScreenController implements ApplicationContextAware
+{
     private ApplicationContext applicationContext;
     private Stage stage;
 
-    public void init(Stage stage) {
+    public void init(Stage stage)
+    {
         this.stage = stage;
         String fxmlPath = "/scene/main.fxml";
 
@@ -32,25 +33,30 @@ public class ScreenController implements ApplicationContextAware {
         this.stage.show();
     }
 
-    private Parent getRoot(final String fxmlPath) {
+    private Parent getRoot(final String fxmlPath)
+    {
         Parent root = null;
-        try {
+        try
+        {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             loader.setControllerFactory(aClass -> loadScreenController(fxmlPath));
             root = loader.load();
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             e.printStackTrace();
         }
         return root;
     }
 
-    private MainController loadScreenController(String fxmlPath) {
+    private MainController loadScreenController(String fxmlPath)
+    {
         Class controllerClass = FXMLUtils.getControllerClass(fxmlPath);
         return (MainController) applicationContext.getBean(controllerClass);
     }
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException
+    {
         this.applicationContext = applicationContext;
     }
 }

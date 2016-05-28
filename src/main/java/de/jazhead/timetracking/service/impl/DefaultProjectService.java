@@ -5,6 +5,7 @@ import de.jazhead.timetracking.model.Project;
 import de.jazhead.timetracking.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,24 +13,22 @@ import java.util.List;
  * @Author jazhead
  */
 @Service
-public class DefaultProjectService implements ProjectService {
-
+@Transactional
+public class DefaultProjectService implements ProjectService
+{
     @Autowired
     private ProjectDao projectDao;
 
     @Override
-    public List<Project> getAllProjects() {
-
+    public List<Project> getAllProjects()
+    {
         return projectDao.findAllProjects();
-
     }
 
     @Override
-    public Project saveProject(String text) {
-
+    public Project saveProject(String text)
+    {
         int id = projectDao.saveProject(text);
-
         return projectDao.findProject(id);
-
     }
 }

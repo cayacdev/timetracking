@@ -7,8 +7,8 @@ import java.util.List;
 /**
  * @Author jazhead
  */
-public interface ProjectService {
-
+public interface ProjectService
+{
     List<Project> getAllProjects();
 
     Project saveProject(String text);

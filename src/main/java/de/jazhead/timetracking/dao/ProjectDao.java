@@ -7,8 +7,8 @@ import java.util.List;
 /**
  * @Author jazhead
  */
-public interface ProjectDao {
-
+public interface ProjectDao
+{
     List<Project> findAllProjects();
 
     int saveProject(String text);

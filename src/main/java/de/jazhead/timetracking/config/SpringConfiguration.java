@@ -10,6 +10,6 @@ import org.springframework.context.annotation.ImportResource;
 @Configuration
 @ImportResource("classpath:database/data_source.xml")
 @ComponentScan("de.jazhead.timetracking")
-public class SpringConfiguration {
-
+public class SpringConfiguration
+{
 }

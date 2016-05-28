@@ -9,14 +9,16 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 /**
  * @Author jazhead
  */
-public class Main extends Application {
-
-    public static void main(String[] args) {
+public class Main extends Application
+{
+    public static void main(String[] args)
+    {
         launch(args);
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws Exception
+    {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfiguration.class);
         ScreenController controller = context.getBean(ScreenController.class);
         controller.init(primaryStage);
