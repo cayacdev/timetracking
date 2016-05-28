@@ -30,6 +30,7 @@ public class DefaultProjectDao implements ProjectDao {
         transaction.begin();
         List list = session.createCriteria(Project.class).list();
         transaction.commit();
+        session.close();
 
         return list;
     }
@@ -44,7 +45,9 @@ public class DefaultProjectDao implements ProjectDao {
 
         transaction.begin();
         Serializable save = session.save(project);
+        session.flush();
         transaction.commit();
+        session.close();
 
         return (int) save;
     }
@@ -56,8 +59,12 @@ public class DefaultProjectDao implements ProjectDao {
         Transaction transaction = session.getTransaction();
 
         transaction.begin();
+        Project project = (de.jazhead.timetracking.model.Project) session.createCriteria(Project.class).add(Restrictions.eq("id", id)).uniqueResult();
+        transaction.commit();
 
-        return (Project) session.createCriteria(Project.class).add(Restrictions.eq("id", id)).uniqueResult();
+        session.close();
+
+        return project;
     }
 }
 
