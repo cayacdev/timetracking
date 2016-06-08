@@ -1,21 +1,21 @@
 package de.jazhead.timetracking.controller.scene;
 
-import de.jazhead.timetracking.controller.widget.ValidatorNotification;
-import de.jazhead.timetracking.exception.ValidationErrorException;
 import de.jazhead.timetracking.model.Project;
+import de.jazhead.timetracking.model.SubProject;
 import de.jazhead.timetracking.service.ProjectService;
 import de.jazhead.timetracking.utils.converter.ProjectStringConverter;
+import de.jazhead.timetracking.utils.converter.SubProjectStringConverter;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -24,8 +24,8 @@ import java.util.ResourceBundle;
 @Component
 public class MainController implements Initializable
 {
-    public ComboBox<Project> comboBox;
-    public TextField textField;
+    public ComboBox<Project> projectComboBox;
+    public ComboBox<SubProject> subProjectComboBox;
 
     @Autowired
     private ProjectService projectService;
@@ -36,17 +36,18 @@ public class MainController implements Initializable
     {
         list = FXCollections.observableArrayList(projectService.getAllProjects());
 
-        comboBox.setItems(list);
-        comboBox.setConverter(new ProjectStringConverter());
+        projectComboBox.setItems(list);
+        projectComboBox.setConverter(new ProjectStringConverter());
+        subProjectComboBox.setConverter(new SubProjectStringConverter());
 
         list.addListener((ListChangeListener<? super Project>) e -> System.out.println("changed"));
-
-        System.out.println("test");
+        //list.addListener();
     }
 
     public void saveProject(ActionEvent actionEvent)
     {
-        String text = textField.getText();
+        // TODO: 01.06.16 we dont need it here
+        /*String text = textField.getText();
         Project project;
         try
         {
@@ -56,6 +57,19 @@ public class MainController implements Initializable
         } catch (ValidationErrorException validationErrorException)
         {
             ValidatorNotification.message("Validation error", "The project " + text + " already exists");
-        }
+        }*/
+    }
+
+    public void updateProject(ActionEvent actionEvent)
+    {
+        // TODO: 01.06.16 only if tracking == false
+
+        Project selectedProject = projectComboBox.getSelectionModel().getSelectedItem();
+
+        List<SubProject> subProjectList = projectService.getSubProjectsForProject(selectedProject);
+        ObservableList<SubProject> subProjectObservableList = FXCollections.observableArrayList(subProjectList);
+
+        subProjectComboBox.setItems(subProjectObservableList);
+
     }
 }

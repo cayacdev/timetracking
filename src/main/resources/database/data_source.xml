@@ -34,6 +34,8 @@
         <property name="annotatedClasses">
             <list>
                 <value>de.jazhead.timetracking.model.Project</value>
+                <value>de.jazhead.timetracking.model.SubProject</value>
+                <value>de.jazhead.timetracking.model.TimeRow</value>
             </list>
         </property>
 

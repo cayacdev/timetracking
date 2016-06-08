@@ -1,6 +1,7 @@
 package de.jazhead.timetracking.dao;
 
 import de.jazhead.timetracking.model.Project;
+import de.jazhead.timetracking.model.SubProject;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface ProjectDao
     int saveProject(String text);
 
     Project findProject(int id);
+
+    List<SubProject> findSubProjects(Project project);
 }

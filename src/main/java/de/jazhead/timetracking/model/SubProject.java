@@ -6,17 +6,20 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
 
 /**
- * @Author jazhead
+ * Created by philipp.mueller on 01.06.16.
  */
 @Entity
-@Table(name = "project")
-public class Project
+@Table(name = "subProject")
+public class SubProject
 {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", unique = true, nullable = false)
@@ -25,8 +28,12 @@ public class Project
     @Column(name = "name", unique = true, nullable = false)
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
-    private List<SubProject> subProjects;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id", nullable = false)
+    private Project project;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "subProject")
+    private List<TimeRow> timeRows;
 
     public int getId()
     {
@@ -48,13 +55,13 @@ public class Project
         this.name = name;
     }
 
-    public List<SubProject> getSubProjects()
+    public Project getProject()
     {
-        return subProjects;
+        return project;
     }
 
-    public void setSubProjects(List<SubProject> subProjects)
+    public void setProject(Project project)
     {
-        this.subProjects = subProjects;
+        this.project = project;
     }
 }
