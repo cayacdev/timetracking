@@ -13,9 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
-/**
- * @Author jazhead
- */
 @Service
 public class ScreenController implements ApplicationContextAware
 {

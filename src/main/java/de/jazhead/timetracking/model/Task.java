@@ -12,12 +12,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
 
-/**
- * Created by philipp.mueller on 01.06.16.
- */
 @Entity
 @Table(name = "subProject")
-public class SubProject
+public class Task
 {
 
     @Id

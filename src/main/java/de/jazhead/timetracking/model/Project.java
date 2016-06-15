@@ -10,9 +10,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
 
-/**
- * @Author jazhead
- */
 @Entity
 @Table(name = "project")
 public class Project
@@ -26,7 +23,7 @@ public class Project
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
-    private List<SubProject> subProjects;
+    private List<Task> tasks;
 
     public int getId()
     {
@@ -48,13 +45,13 @@ public class Project
         this.name = name;
     }
 
-    public List<SubProject> getSubProjects()
+    public List<Task> getTasks()
     {
-        return subProjects;
+        return tasks;
     }
 
-    public void setSubProjects(List<SubProject> subProjects)
+    public void setTasks(List<Task> tasks)
     {
-        this.subProjects = subProjects;
+        this.tasks = tasks;
     }
 }

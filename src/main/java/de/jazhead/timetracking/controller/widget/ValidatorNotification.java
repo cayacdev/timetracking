@@ -7,9 +7,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-/**
- * @Author jazhead
- */
 public class ValidatorNotification
 {
 

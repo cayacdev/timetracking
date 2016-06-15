@@ -6,9 +6,6 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-/**
- * @Author jazhead
- */
 public class Main extends Application
 {
     public static void main(String[] args)

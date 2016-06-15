@@ -1,13 +1,10 @@
 package de.jazhead.timetracking.dao;
 
 import de.jazhead.timetracking.model.Project;
-import de.jazhead.timetracking.model.SubProject;
+import de.jazhead.timetracking.model.Task;
 
 import java.util.List;
 
-/**
- * @Author jazhead
- */
 public interface ProjectDao
 {
     List<Project> findAllProjects();
@@ -16,5 +13,5 @@ public interface ProjectDao
 
     Project findProject(int id);
 
-    List<SubProject> findSubProjects(Project project);
+    List<Task> findSubProjects(Project project);
 }

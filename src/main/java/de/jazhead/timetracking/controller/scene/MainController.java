@@ -1,7 +1,7 @@
 package de.jazhead.timetracking.controller.scene;
 
 import de.jazhead.timetracking.model.Project;
-import de.jazhead.timetracking.model.SubProject;
+import de.jazhead.timetracking.model.Task;
 import de.jazhead.timetracking.service.ProjectService;
 import de.jazhead.timetracking.utils.converter.ProjectStringConverter;
 import de.jazhead.timetracking.utils.converter.SubProjectStringConverter;
@@ -18,14 +18,11 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-/**
- * @Author jazhead
- */
 @Component
 public class MainController implements Initializable
 {
     public ComboBox<Project> projectComboBox;
-    public ComboBox<SubProject> subProjectComboBox;
+    public ComboBox<Task> subProjectComboBox;
 
     @Autowired
     private ProjectService projectService;
@@ -51,7 +48,7 @@ public class MainController implements Initializable
         Project project;
         try
         {
-            project = projectService.saveProject(text);
+            project = projectService.save(text);
             list.add(project);
             textField.setText("");
         } catch (ValidationErrorException validationErrorException)
@@ -66,10 +63,10 @@ public class MainController implements Initializable
 
         Project selectedProject = projectComboBox.getSelectionModel().getSelectedItem();
 
-        List<SubProject> subProjectList = projectService.getSubProjectsForProject(selectedProject);
-        ObservableList<SubProject> subProjectObservableList = FXCollections.observableArrayList(subProjectList);
+        List<Task> taskList = projectService.getTasks(selectedProject);
+        ObservableList<Task> taskObservableList = FXCollections.observableArrayList(taskList);
 
-        subProjectComboBox.setItems(subProjectObservableList);
+        subProjectComboBox.setItems(taskObservableList);
 
     }
 }

@@ -3,15 +3,12 @@ package de.jazhead.timetracking.dao.impl;
 import de.jazhead.timetracking.dao.AbstractDao;
 import de.jazhead.timetracking.dao.ProjectDao;
 import de.jazhead.timetracking.model.Project;
-import de.jazhead.timetracking.model.SubProject;
+import de.jazhead.timetracking.model.Task;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * @Author jazhead
- */
 @Repository
 public class DefaultProjectDao extends AbstractDao implements ProjectDao
 {
@@ -37,9 +34,9 @@ public class DefaultProjectDao extends AbstractDao implements ProjectDao
     }
 
     @Override
-    public List<SubProject> findSubProjects(Project project)
+    public List<Task> findSubProjects(Project project)
     {
-        return getCurrentSession().createCriteria(SubProject.class).add(Restrictions.eq("project", project)).list();
+        return getCurrentSession().createCriteria(Task.class).add(Restrictions.eq("project", project)).list();
     }
 }
 

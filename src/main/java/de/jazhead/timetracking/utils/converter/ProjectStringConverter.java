@@ -3,9 +3,6 @@ package de.jazhead.timetracking.utils.converter;
 import de.jazhead.timetracking.model.Project;
 import javafx.util.StringConverter;
 
-/**
- * @Author jazhead
- */
 public class ProjectStringConverter extends StringConverter<Project>
 {
     @Override

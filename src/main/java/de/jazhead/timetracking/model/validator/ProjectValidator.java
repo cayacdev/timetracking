@@ -9,9 +9,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-/**
- * @Author jazhead
- */
 @Component
 public class ProjectValidator
 {

@@ -18,9 +18,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.net.URL;
 
-/**
- * @author Mehmet Sunkur <mehmetsunkur@gmail.com>
- */
 public class FXMLUtils
 {
     public static Class getControllerClass(String fxmlPath)

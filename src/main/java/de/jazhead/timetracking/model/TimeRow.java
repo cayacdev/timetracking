@@ -11,9 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.sql.Date;
 
-/**
- * Created by philipp.mueller on 08.06.16.
- */
 @Entity
 @Table(name = "timeRow")
 public class TimeRow
@@ -35,7 +32,7 @@ public class TimeRow
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subProject_id", nullable = false)
-    private SubProject subProject;
+    private Task task;
 
     public int getId()
     {
@@ -77,13 +74,13 @@ public class TimeRow
         this.description = description;
     }
 
-    public SubProject getSubProject()
+    public Task getTask()
     {
-        return subProject;
+        return task;
     }
 
-    public void setSubProject(SubProject subProject)
+    public void setTask(Task task)
     {
-        this.subProject = subProject;
+        this.task = task;
     }
 }
