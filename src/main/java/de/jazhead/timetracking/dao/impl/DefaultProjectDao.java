@@ -10,32 +10,27 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class DefaultProjectDao extends AbstractDao implements ProjectDao
-{
+public class DefaultProjectDao extends AbstractDao implements ProjectDao {
     @Override
-    public List<Project> findAllProjects()
-    {
+    public List<Project> findAllProjects() {
         return getCurrentSession().createCriteria(Project.class).list();
     }
 
     @Override
-    public int saveProject(String text)
-    {
-        Project project = new Project();
+    public void saveProject(final String text) {
+        final Project project = new Project();
         project.setName(text);
 
-        return (int) getCurrentSession().save(project);
+        getCurrentSession().save(project);
     }
 
     @Override
-    public Project findProject(int id)
-    {
+    public Project findProject(final int id) {
         return (Project) getCurrentSession().createCriteria(Project.class).add(Restrictions.eq("id", id)).uniqueResult();
     }
 
     @Override
-    public List<Task> findSubProjects(Project project)
-    {
+    public List<Task> findSubProjects(final Project project) {
         return getCurrentSession().createCriteria(Task.class).add(Restrictions.eq("project", project)).list();
     }
 }

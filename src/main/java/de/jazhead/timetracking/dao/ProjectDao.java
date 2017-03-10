@@ -5,11 +5,10 @@ import de.jazhead.timetracking.model.Task;
 
 import java.util.List;
 
-public interface ProjectDao
-{
+public interface ProjectDao {
     List<Project> findAllProjects();
 
-    int saveProject(String text);
+    void saveProject(String text);
 
     Project findProject(int id);
 

@@ -2,58 +2,55 @@ package de.jazhead.timetracking.controller;
 
 import de.jazhead.timetracking.controller.scene.MainController;
 import de.jazhead.timetracking.utils.FXMLUtils;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-@Service
-public class ScreenController implements ApplicationContextAware
-{
+@Component
+public class ScreenController implements ApplicationContextAware {
     private ApplicationContext applicationContext;
-    private Stage stage;
 
-    public void init(Stage stage)
-    {
-        this.stage = stage;
-        String fxmlPath = "/fxml/scene/main.fxml";
+    private Stage mainStage;
 
-        Parent root = getRoot(fxmlPath);
+    @Autowired
+    private MainController mainController;
 
-        this.stage.setScene(new Scene(root));
-        this.stage.show();
+    @Autowired
+    private FXMLUtils fxmlUtils;
+
+    public void init(final Stage stage) {
+        this.mainStage = stage;
+        mainController.setStage(stage);
+
+        final Parent root = getRoot(mainController.getView());
+
+        this.mainStage.setScene(new Scene(root));
+        this.mainStage.show();
     }
 
-    private Parent getRoot(final String fxmlPath)
-    {
+    private Parent getRoot(final String fxmlPath) {
         Parent root = null;
-        try
-        {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            loader.setControllerFactory(aClass -> loadScreenController(fxmlPath));
-            root = loader.load();
-        } catch (IOException e)
-        {
+        try {
+            root = fxmlUtils.getFxmlLoader(fxmlPath).load();
+        } catch (final IOException e) {
             e.printStackTrace();
         }
         return root;
     }
 
-    private MainController loadScreenController(String fxmlPath)
-    {
-        Class controllerClass = FXMLUtils.getControllerClass(fxmlPath);
-        return (MainController) applicationContext.getBean(controllerClass);
+    public Stage getMainStage() {
+        return mainStage;
     }
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException
-    {
+    public void setApplicationContext(final ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }
 }
