@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "subProject")
+@Table(name = "task")
 public class Task
 {
 

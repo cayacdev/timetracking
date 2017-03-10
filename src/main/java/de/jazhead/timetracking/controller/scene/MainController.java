@@ -19,8 +19,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 @Component
-public class MainController implements Initializable
-{
+public class MainController implements Initializable {
     public ComboBox<Project> projectComboBox;
     public ComboBox<Task> subProjectComboBox;
 
@@ -29,8 +28,7 @@ public class MainController implements Initializable
     private ObservableList<Project> list;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources)
-    {
+    public void initialize(final URL location, final ResourceBundle resources) {
         list = FXCollections.observableArrayList(projectService.getAllProjects());
 
         projectComboBox.setItems(list);
@@ -41,8 +39,7 @@ public class MainController implements Initializable
         //list.addListener();
     }
 
-    public void saveProject(ActionEvent actionEvent)
-    {
+    public void saveProject(final ActionEvent actionEvent) {
         // TODO: 01.06.16 we dont need it here
         /*String text = textField.getText();
         Project project;
@@ -57,16 +54,14 @@ public class MainController implements Initializable
         }*/
     }
 
-    public void updateProject(ActionEvent actionEvent)
-    {
+    public void updateSubProjectSelectionBox(final ActionEvent actionEvent) {
         // TODO: 01.06.16 only if tracking == false
 
-        Project selectedProject = projectComboBox.getSelectionModel().getSelectedItem();
+        final Project selectedProject = projectComboBox.getSelectionModel().getSelectedItem();
 
-        List<Task> taskList = projectService.getTasks(selectedProject);
-        ObservableList<Task> taskObservableList = FXCollections.observableArrayList(taskList);
+        final List<Task> taskList = projectService.getTasks(selectedProject);
+        final ObservableList<Task> taskObservableList = FXCollections.observableArrayList(taskList);
 
         subProjectComboBox.setItems(taskObservableList);
-
     }
 }
