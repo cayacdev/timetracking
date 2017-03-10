@@ -1,14 +1,6 @@
 package de.jazhead.timetracking.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
@@ -31,7 +23,7 @@ public class TimeRow
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "subProject_id", nullable = false)
+    @JoinColumn(name = "task_id", nullable = false)
     private Task task;
 
     public int getId()
@@ -39,7 +31,7 @@ public class TimeRow
         return id;
     }
 
-    public void setId(int id)
+    public void setId(final int id)
     {
         this.id = id;
     }
@@ -49,7 +41,7 @@ public class TimeRow
         return startDate;
     }
 
-    public void setStartDate(Date startDate)
+    public void setStartDate(final Date startDate)
     {
         this.startDate = startDate;
     }
@@ -59,7 +51,7 @@ public class TimeRow
         return endDate;
     }
 
-    public void setEndDate(Date endDate)
+    public void setEndDate(final Date endDate)
     {
         this.endDate = endDate;
     }
@@ -69,7 +61,7 @@ public class TimeRow
         return description;
     }
 
-    public void setDescription(String description)
+    public void setDescription(final String description)
     {
         this.description = description;
     }
@@ -79,7 +71,7 @@ public class TimeRow
         return task;
     }
 
-    public void setTask(Task task)
+    public void setTask(final Task task)
     {
         this.task = task;
     }

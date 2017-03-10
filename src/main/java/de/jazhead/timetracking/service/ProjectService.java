@@ -1,6 +1,5 @@
 package de.jazhead.timetracking.service;
 
-import de.jazhead.timetracking.exception.ValidationErrorException;
 import de.jazhead.timetracking.model.Project;
 import de.jazhead.timetracking.model.Task;
 
@@ -10,7 +9,7 @@ public interface ProjectService
 {
     List<Project> getAllProjects();
 
-    Project save(String text) throws ValidationErrorException;
+    void save(String text);
 
     List<Task> getTasks(Project project);
 }

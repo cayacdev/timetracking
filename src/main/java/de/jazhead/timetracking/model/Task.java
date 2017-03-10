@@ -1,15 +1,6 @@
 package de.jazhead.timetracking.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -29,7 +20,7 @@ public class Task
     @JoinColumn(name = "project_id", nullable = false)
     private Project project;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "subProject")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
     private List<TimeRow> timeRows;
 
     public int getId()
@@ -37,7 +28,7 @@ public class Task
         return id;
     }
 
-    public void setId(int id)
+    public void setId(final int id)
     {
         this.id = id;
     }
@@ -47,7 +38,7 @@ public class Task
         return name;
     }
 
-    public void setName(String name)
+    public void setName(final String name)
     {
         this.name = name;
     }
@@ -57,8 +48,16 @@ public class Task
         return project;
     }
 
-    public void setProject(Project project)
+    public void setProject(final Project project)
     {
         this.project = project;
+    }
+
+    public List<TimeRow> getTimeRows() {
+        return timeRows;
+    }
+
+    public void setTimeRows(final List<TimeRow> timeRows) {
+        this.timeRows = timeRows;
     }
 }
