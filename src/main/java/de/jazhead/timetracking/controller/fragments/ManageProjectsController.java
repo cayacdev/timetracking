@@ -2,10 +2,14 @@ package de.jazhead.timetracking.controller.fragments;
 
 import de.jazhead.timetracking.controller.TimeTrackingController;
 import de.jazhead.timetracking.service.ProjectService;
+import de.jazhead.timetracking.utils.validation.ProjectValidatorUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.controlsfx.validation.Severity;
+import org.controlsfx.validation.ValidationSupport;
+import org.controlsfx.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,19 +24,28 @@ public class ManageProjectsController implements TimeTrackingController, Initial
     @Autowired
     private ProjectService projectService;
 
+    @Autowired
+    private ProjectValidatorUtils projectValidatorUtils;
+
     public TextField textFieldProjectName;
+
+    ValidationSupport validationSupport = new ValidationSupport();
 
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
 
+        validationSupport.registerValidator(textFieldProjectName, false, Validator.createEmptyValidator("Text is required", Severity.ERROR));
+        validationSupport.registerValidator(textFieldProjectName, false, Validator.createPredicateValidator(projectValidatorUtils::isUniqueProjectName, "Projectname is already in use", Severity.ERROR));
+        validationSupport.initInitialDecoration();
     }
 
     public void saveProject(final ActionEvent actionEvent) {
         final String text = textFieldProjectName.getText();
 
-        projectService.save(text);
-
-        this.stage.close();
+        if (!validationSupport.isInvalid()) {
+            projectService.save(text);
+            this.stage.close();
+        }
     }
 
     @Override

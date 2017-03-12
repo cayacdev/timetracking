@@ -9,6 +9,7 @@ import de.jazhead.timetracking.model.Task_;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -46,6 +47,23 @@ public class DefaultProjectDao extends AbstractDao implements ProjectDao {
         query.select(projectRoot).where(builder.equal(projectRoot.get(Project_.id), id));
 
         return getEntityManager().createQuery(query).getSingleResult();
+    }
+
+    @Override
+    public Project findProject(final String name) {
+        final CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+
+        final CriteriaQuery<Project> query = builder.createQuery(Project.class);
+        final Root<Project> projectRoot = query.from(Project.class);
+        query.select(projectRoot).where(builder.equal(projectRoot.get(Project_.name), name));
+
+        Project result = null;
+        try {
+            result = getEntityManager().createQuery(query).getSingleResult();
+        } catch (final NoResultException ignored) {
+            
+        }
+        return result;
     }
 
     @Override

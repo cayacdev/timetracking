@@ -68,6 +68,13 @@
             <version>3.0</version>
         </dependency>
 
+        <!--JavaFX-->
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>8.40.12</version>
+        </dependency>
+
     </dependencies>
 
     <build>

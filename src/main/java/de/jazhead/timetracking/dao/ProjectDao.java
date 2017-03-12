@@ -12,5 +12,7 @@ public interface ProjectDao {
 
     Project findProject(int id);
 
+    Project findProject(String name);
+
     List<Task> findSubProjects(Project project);
 }

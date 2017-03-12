@@ -21,6 +21,11 @@ public class DefaultProjectService implements ProjectService {
     }
 
     @Override
+    public Project getProject(final String projectName) {
+        return projectDao.findProject(projectName);
+    }
+
+    @Override
     public void save(final String text) {
         projectDao.saveProject(text);
     }

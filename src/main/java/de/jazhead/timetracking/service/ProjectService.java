@@ -5,9 +5,11 @@ import de.jazhead.timetracking.model.Task;
 
 import java.util.List;
 
-public interface ProjectService
-{
+public interface ProjectService {
+
     List<Project> getAllProjects();
+
+    Project getProject(String projectName);
 
     void save(String text);
 
