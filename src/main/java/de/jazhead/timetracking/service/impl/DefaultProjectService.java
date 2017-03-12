@@ -6,32 +6,27 @@ import de.jazhead.timetracking.model.Task;
 import de.jazhead.timetracking.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@Transactional
-public class DefaultProjectService implements ProjectService
-{
+public class DefaultProjectService implements ProjectService {
+
     @Autowired
     private ProjectDao projectDao;
 
     @Override
-    public List<Project> getAllProjects()
-    {
+    public List<Project> getAllProjects() {
         return projectDao.findAllProjects();
     }
 
     @Override
-    public void save(final String text)
-    {
+    public void save(final String text) {
         projectDao.saveProject(text);
     }
 
     @Override
-    public List<Task> getTasks(final Project project)
-    {
+    public List<Task> getTasks(final Project project) {
         return projectDao.findSubProjects(project);
     }
 }

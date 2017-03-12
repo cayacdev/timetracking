@@ -10,7 +10,8 @@
     <children>
         <HBox>
             <TextField fx:id="textFieldProjectName" prefWidth="250"/>
-            <Button onAction="#saveProject" text="Save"/>
+            <Button onAction="#saveProject" text="Submit" disable="${textFieldProjectName.text.empty}"/>
         </HBox>
     </children>
 </VBox>
+

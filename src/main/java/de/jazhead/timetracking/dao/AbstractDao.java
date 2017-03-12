@@ -1,16 +1,14 @@
 package de.jazhead.timetracking.dao;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
-abstract public class AbstractDao
-{
-    @Autowired
-    private SessionFactory sessionFactory;
+public abstract class AbstractDao {
 
-    protected Session getCurrentSession()
-    {
-        return sessionFactory.getCurrentSession();
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    protected EntityManager getEntityManager() {
+        return entityManager;
     }
 }
