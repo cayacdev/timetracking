@@ -8,6 +8,10 @@ package de.jazhead.timetracking.utils;
 
 import de.jazhead.timetracking.controller.TimeTrackingController;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -26,7 +30,28 @@ import java.net.URL;
 public class FXMLUtils {
 
     @Autowired
-    ApplicationContext applicationContext;
+    private ApplicationContext applicationContext;
+
+    public Stage getModalStage(final TimeTrackingController controller) {
+        final Parent viewNode;
+        try {
+            viewNode = getFxmlLoader(controller.getView()).load();
+        } catch (final IOException e) {
+            throw new IllegalArgumentException("Cannot load node for: " + controller.getView(), e);
+        }
+        final Stage stage = new Stage();
+        controller.setStage(stage);
+
+        final Scene scene = new Scene(viewNode);
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+
+        return stage;
+    }
+
+    public Scene getScene() {
+        return null;
+    }
 
     public FXMLLoader getFxmlLoader(final String fxmlPath) {
         final FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -38,7 +63,12 @@ public class FXMLUtils {
     private TimeTrackingController loadScreenController(final String fxmlPath) {
         final Class controllerClass = getControllerClass(fxmlPath);
 
-        return (TimeTrackingController) applicationContext.getBean(controllerClass);
+        final Object bean = applicationContext.getBean(controllerClass);
+        if (bean instanceof TimeTrackingController) {
+            return (TimeTrackingController) bean;
+        } else {
+            throw new IllegalArgumentException("Controller for [" + fxmlPath + "] is no instance of TimeTrackingController: " + bean);
+        }
     }
 
     public Class getControllerClass(final String fxmlPath) {

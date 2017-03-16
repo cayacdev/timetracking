@@ -6,13 +6,12 @@ import de.jazhead.timetracking.controller.fragments.ManageProjectsController;
 import de.jazhead.timetracking.model.Project;
 import de.jazhead.timetracking.model.Task;
 import de.jazhead.timetracking.service.ProjectService;
-import de.jazhead.timetracking.utils.FXViewUtils;
+import de.jazhead.timetracking.utils.FXMLUtils;
 import de.jazhead.timetracking.utils.converter.ProjectStringConverter;
 import de.jazhead.timetracking.utils.converter.SubProjectStringConverter;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuItem;
@@ -39,7 +38,7 @@ public class MainController implements TimeTrackingController, Initializable {
     private ProjectService projectService;
 
     @Autowired
-    private FXViewUtils fxViewUtils;
+    private FXMLUtils fxmlUtils;
 
     public MenuItem menuItemClose;
     public MenuItem menuItemEdit;
@@ -61,12 +60,12 @@ public class MainController implements TimeTrackingController, Initializable {
 
         menuItemClose.setOnAction(e -> screenController.getMainStage().close());
         menuItemEdit.setOnAction(e -> {
-            fxViewUtils.getModalStage(manageProjectsController).showAndWait();
+            fxmlUtils.getModalStage(manageProjectsController).showAndWait();
             projectComboBox.setItems(FXCollections.observableList(projectService.getAllProjects()));
         });
     }
 
-    public void updateSubProjectSelectionBox(final ActionEvent actionEvent) {
+    public void updateSubProjectSelectionBox() {
         final Project selectedProject = projectComboBox.getSelectionModel().getSelectedItem();
 
         final List<Task> taskList = projectService.getTasks(selectedProject);
