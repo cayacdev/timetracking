@@ -15,6 +15,7 @@ import java.io.IOException;
 
 @Component
 public class ScreenController implements ApplicationContextAware {
+
     private ApplicationContext applicationContext;
 
     private Stage mainStage;
@@ -36,11 +37,11 @@ public class ScreenController implements ApplicationContextAware {
     }
 
     private Parent getRoot(final String fxmlPath) {
-        Parent root = null;
+        final Parent root;
         try {
             root = fxmlUtils.getFxmlLoader(fxmlPath).load();
         } catch (final IOException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException("Cannot load: " + fxmlPath, e);
         }
         return root;
     }

@@ -3,7 +3,6 @@ package de.jazhead.timetracking.controller.fragments;
 import de.jazhead.timetracking.controller.TimeTrackingController;
 import de.jazhead.timetracking.service.ProjectService;
 import de.jazhead.timetracking.utils.validation.ProjectValidatorUtils;
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -29,17 +28,17 @@ public class ManageProjectsController implements TimeTrackingController, Initial
 
     public TextField textFieldProjectName;
 
-    ValidationSupport validationSupport = new ValidationSupport();
+    private final ValidationSupport validationSupport = new ValidationSupport();
 
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
 
-        validationSupport.registerValidator(textFieldProjectName, false, Validator.createEmptyValidator("Text is required", Severity.ERROR));
         validationSupport.registerValidator(textFieldProjectName, false, Validator.createPredicateValidator(projectValidatorUtils::isUniqueProjectName, "Projectname is already in use", Severity.ERROR));
+        validationSupport.registerValidator(textFieldProjectName, false, Validator.createPredicateValidator(projectValidatorUtils::isNotEmpty, "Projectname cannot be empty", Severity.ERROR));
         validationSupport.initInitialDecoration();
     }
 
-    public void saveProject(final ActionEvent actionEvent) {
+    public void saveProject() {
         final String text = textFieldProjectName.getText();
 
         if (!validationSupport.isInvalid()) {
